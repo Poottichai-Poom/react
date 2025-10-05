@@ -4,10 +4,10 @@ import data from '../app/data';
 import Product from './Product/index';
 import AddForm from './Product/AddForm';
 
+let currentProductId =9;
 export default function Home() {
   const [products, setProducts] = useState(data);
 
-let currentProductId =9;
   function addProduct(product) {
   const newProduct = { id: ++currentProductId, ...product };
   setProducts([...products, newProduct]);
