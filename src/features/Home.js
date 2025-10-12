@@ -1,22 +1,26 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+import { useEffect } from 'react';
 
 import data from '../app/data';
 import Product from './Product/index';
 import AddForm from './Product/AddForm';
 
 let currentProductId = 9;
-export default function Home() {
+function Home() {
   const [products, setProducts] = useState(data);
 
-  async function getProducts() {
-    const products = await axios.get(
-      'https://apimocha.com/react-redux-class/products'
-    );
-    setProducts(products.data);
-  }
+  useEffect(() => {
+    async function getProducts() {
+      const products = await axios.get(
+        'https://apimocha.com/react-redux-class/products'
+      );
+      setProducts(products.data);
+    }
 
-  getProducts();
+    getProducts();
+  }, []);
 
   function addProduct(product) {
     const newProduct = { id: ++currentProductId, ...product };
@@ -39,3 +43,15 @@ export default function Home() {
     </Fragment>
   );
 }
+
+
+export default styled(Home)`
+  .Home__products {
+    display: flex;
+    flex-wrap: wrap;
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0 -12px;
+  }
+`;
