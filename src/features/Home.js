@@ -1,49 +1,22 @@
-import React, { Fragment, useState } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-import { useEffect } from 'react';
+import Product from "./Product";
+import styled from "styled-components";
 
-import data from '../app/data';
-import Product from './Product/index';
-import AddForm from './Product/AddForm';
 
-let currentProductId = 9;
-function Home() {
-  const [products, setProducts] = useState(data);
-
-  useEffect(() => {
-    async function getProducts() {
-      const products = await axios.get(
-        'https://apimocha.com/react-redux-class/products'
-      );
-      setProducts(products.data);
-    }
-
-    getProducts();
-  }, []);
-
-  function addProduct(product) {
-    const newProduct = { id: ++currentProductId, ...product };
-    setProducts([...products, newProduct]);
-  }
-
+function Home({ className, products }) {
   return (
-    <Fragment>
+    // <>
+    <div className={className}>
       <h1>New Products</h1>
-      {products.length > 0 ? (
         <ul className="Home__products">
           {products.map((product) => (
             <Product key={product.id} item={product} />
           ))}
         </ul>
-      ) : (
-        <div>Loading products....</div>
-      )}
-      <AddForm addProduct={addProduct} />
-    </Fragment>
+      {/* <AddForm addProduct={addProduct} /> */}
+    </div>
+    //  </> 
   );
 }
-
 
 export default styled(Home)`
   .Home__products {

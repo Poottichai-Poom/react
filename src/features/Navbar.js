@@ -1,16 +1,16 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ className }) {
   return (
-    <header>
-      <a href="/" className="brand">
+    <header className={className}>
+      <Link href="/" className="brand">
         Trendie
-      </a>
-      <a href="/create-product">Create product</a>
+      </Link>
+      <Link to="/create-product">Create product</Link>
     </header>
   );
 }
-
 
 export default styled(Navbar)`
   height: 48px;

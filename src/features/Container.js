@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-function Container({ children }) {
-  return <main>{children}</main>;
+function Container({ className, children }) {
+  return <main className={className}>{children}</main>;
 }
-
 
 export default styled(Container)`
   max-width: 1200px;
