@@ -1,18 +1,24 @@
-import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-function AddForm({ addProduct }) {
+import { addProduct } from './actions';
+
+function AddForm() {
   const [name, setName] = useState('');
   const [imageURL, setImageURL] = useState('');
   const [type, setType] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function onSubmit(event) {
     event.preventDefault();
-    addProduct({ name, type, imageURL });
+    dispatch(addProduct({ name, type, imageURL }));
+    navigate('/');
   }
 
   return (
-    <Fragment>
+    <>
       <h1>Add Product</h1>
       <form id="create-form" onSubmit={onSubmit}>
         <div className="input-group">
@@ -50,12 +56,8 @@ function AddForm({ addProduct }) {
 
         <button type="submit">Add product</button>
       </form>
-    </Fragment>
+    </>
   );
 }
-
-AddForm.propTypes = {
-  addProduct: PropTypes.func.isRequired
-};
 
 export default AddForm;

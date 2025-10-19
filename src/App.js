@@ -1,33 +1,19 @@
-import React from "react";
-import Navbar from "./features/Navbar";
-import Container from "./features/Container";
-import Home from "./features/Home";
-import GlobalStyle from "./features/GlobalStyle";
-import AddForm from "./features/Product/AddForm";
-import { Routes, Route } from "react-router-dom";
-import UpdateForm from "./features/Product/UpdateForm";
-import { useEffect, useReducer } from "react";
-import axios from "axios";
+import React, { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "GET_PRODUCTS":
-      return action.payload;
-    case "ADD_PRODUCT":
-      return [...state, action.payload];
-    default:
-      return state;
-  }
-};
+import Navbar from './features/Navbar';
+import Container from './features/Container';
+import Home from './features/Home';
+import GlobalStyle from './features/GlobalStyle';
+import AddForm from './features/Product/AddForm';
+import UpdateForm from './features/Product/UpdateForm';
+import { fetchProducts } from './features/Product/actions';
 
 function App() {
-  const [products, dispatch] = useReducer(reducer, []);
-
-  // function addProduct(product) {
-  //   const newProduct = { id: ++currentProductId, ...product };
-  //   // setProducts([...products, newProduct]);
-  //   dispatch({ type: "ADD_PRODUCT", payload: newProduct });
-  // }
+  const products = useSelector((state) => state.products);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getProducts() {
@@ -35,7 +21,7 @@ function App() {
         "https://mocki.io/v1/1c0ef530-d6ec-4512-97ff-73a5d560d961"
       );
       // setProducts(products.data);
-      dispatch({ type: "GET_PRODUCTS", payload: products.data });
+      dispatch(fetchProducts(products.data));
     }
 
     getProducts();
